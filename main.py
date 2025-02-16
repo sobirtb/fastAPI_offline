@@ -17,21 +17,21 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/docs", include_in_schema=False)
-def custom_swagger_ui():
+async def custom_swagger_ui():
     return RedirectResponse(url="/static/swagger/index.html")
 
 
 @app.get("/redoc", include_in_schema=False)
-def custom_redoc():
+async def custom_redoc():
     return RedirectResponse(url="/static/redoc/index.html")
 
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"message": "Hello, FastAPI!",
             "Documentation": "/docs",
             "Redoc": f"/redoc"}
 
 @app.get("/items/{item_id}")
-def read_item(item_id: int):
+async def read_item(item_id: int):
     return {"item_id": item_id}
